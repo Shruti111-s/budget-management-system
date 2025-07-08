@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+        h1, h2 { text-align: center; }
+        form, table { margin: auto; width: 80%; }
+        form div { margin-bottom: 10px; }
+        input, select { padding: 5px; width: 100%; }
+        table { border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        .summary { text-align: center; margin: 20px 0; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>Simple Expense Tracker</h1>
+
+    <form method="POST">
+        <div>
+            <label>Type:</label>
+            <select name="type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+        </div>
+        <div>
+            <label>Category:
+                <select name="category" required>
+                    <option value="Food">Food</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Other">Other</option>
+                </select>
+            </label><br>
+
+        </div>
+        <div>
+            <label>Amount:</label>
+            <input type="number" name="amount" step="0.01" required>
+        </div>
+        <div>
+            <label>Description:</label>
+            <input type="text" name="description">
+        </div>
+        <div>
+            <button type="submit">Add Transaction</button>
+        </div>
+    </form>
+
+    <div class="summary">
+        <p><strong>Total Income:</strong> ₹{{ '{:.2f}'.format(income) }}</p>
+        <p><strong>Total Expenses:</strong> ₹{{ '{:.2f}'.format(expense) }}</p>
+        <p><strong>Balance:</strong> ₹{{ '{:.2f}'.format(balance) }}</p>
+    </div>
+
+    <h2>All Transactions</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Description</th>
+        </tr>
+        {% for t in transactions %}
+        <tr>
+            <td>{{ t.date }}</td>
+            <td>{{ t.type }}</td>
+            <td>{{ t.category }}</td>
+            <td>${{ t.amount }}</td>
+            <td>{{ t.description }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
